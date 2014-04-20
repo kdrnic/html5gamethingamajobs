@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<script src="base.js"></script>
+		<script src="commonLogic.js"></script>
+		<script src="commonGfx.js"></script>
+		<script src="game.js"></script>
+		<script src="levels.js"></script>
+		<script src="enemies.js"></script>
+		<script src="data.js"></script>
+		<script src="keys.js"></script>
+		<!-- YAY! A shitload of .js files -->
+		<script>
+var gravity = 0.25; // Physical constants
+var maxYSpeed = 20;
+		</script>
+		<style>
+.container
+{
+	border: solid black 1px;
+	position: relative;
+	margin: 0 auto;
+	width: 640;
+	height: 480;
+}
+.gameCanvas
+{
+	position: absolute;
+	z-index: 1;
+}
+.menu
+{
+	position: absolute;
+	z-index: 2;
+	width: 640;
+	height: 480;
+	margin: 0 auto;
+}
+		</style>
+	</head>
+	<body onload="Start();InitGame();">
+		<div class="container">
+			<canvas width="640" height="480" id="canvas" class="gameCanvas"></canvas>
+			<div style="display:none;background-image: url('menuBg.png');" class="menu" id="startMenu">
+				<center>
+					<h1>Game title</h1>
+					<a href="#" onclick="ClickNewGame()">New game</a><br>
+					<a href="#" onclick="ClickPassword()">Password</a><br>
+					<a href="#" onclick="ClickInstructions()">Instructions</a><br>
+					<a href="#" onclick="ClickCredits()">Credits</a>
+				</center>
+			</div>
+			<div style="display:none;background-image: url('menuBg.png');" class="menu" id="passwordMenu">
+				<center>
+					<h1>Enter password to start level</h1>
+					<input type="password" id="passwordBox"><input type="button" onclick="TryPassword()" value="Start level">
+					<br><br><br><br><br><br><br><br><a href="#" onclick="ClickReturn()">Return to start menu</a>
+				</center>
+			</div>
+			<div style="display:none;background-image: url('deathBg.png');" class="menu" id="deathScreen">
+				<center>
+					<h1>You died</h1>
+					<a href="#" onclick="ClickContinue()">Continue</a><br>
+				</center>
+			</div>
+			<div style="background-color: rgb(0,0,0);color: rgb(255,255,255);" class="menu" id="loadingScreen">
+				<center>
+					<h1>Loading</h1>
+					<div style="width: 200; background-color: rgb(0,0,255); height: 20px;"><div id="loadingBar" style="float:left;background-color: rgb(255,0,0);width: 1px; height: 20px; color: rgb(0,0,0);">0% loaded</div></div>
+				</center>
+			</div>
+		</div>
+	</body>
+</html>
