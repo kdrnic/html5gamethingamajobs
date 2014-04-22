@@ -1,4 +1,4 @@
-var dataSrcs = []; // Make an array of strings with all the filenames to be loaded
+var dataSrcs = []; // Array of strings containing the URLs for each data to be preloaded
 var data = {};
 
 function StartLoadingData()
@@ -9,7 +9,6 @@ function StartLoadingData()
 		var extension = dataSrcs[i].substr(dataSrcs[i].length - 4, 4);
 		if(extension == ".png")
 		{
-			console.log("Loading " + dataSrcs[i]);
 			var img = new Image();
 			img.shortSrc = dataSrcs[i];
 			img.src = dataSrcs[i];
@@ -17,7 +16,17 @@ function StartLoadingData()
 			{
 				data[this.shortSrc] = this;
 				data.length++;
-				console.log("Loaded " + this.src);
+			}
+		}
+		if((extension == ".wav") || (extension == ".ogg"))
+		{
+			var snd = new Audio();
+			snd.shortSrc = dataSrcs[i];
+			snd.src = dataSrcs[i];
+			snd.onload = function()
+			{
+				data[this.shortSrc] = this;
+				data.length++;
 			}
 		}
 	}

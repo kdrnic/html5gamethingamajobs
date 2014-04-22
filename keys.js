@@ -1,9 +1,13 @@
 var keys = {};
-var keyConfig = ["keyLeft", 37, "keyRight", 39]; // Key names followed by keycodes
+var keyConfig =
+[
+	"keyLeft", 37, "Move left",
+	"keyRight", 39, "Move right"
+];
 
 function UpdateKeys()
 {
-	for(var i = 0; i < keyConfig.length; i += 2)
+	for(var i = 0; i < keyConfig.length; i += 3)
 	{
 		var key = keys[keyConfig[i]];
 		var _pressed = pressed[keyConfig[i + 1]];

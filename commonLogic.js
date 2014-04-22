@@ -114,3 +114,64 @@ function PlatformerUpdate()
 {
 	DoPlatformerPhysics(this);
 }
+
+function IsVisible(obj)
+{
+	var box = { x: camera.x, y: camera.y, width: canvas.width, height: canvas.height};
+	return Collision(obj, box);
+}
+
+function IsVisibleTo(obj, obj2)
+{
+	if((Math.abs(obj.x - obj2.x) < (canvas.width + obj.width + obj2.width) * 0.5) && (Math.abs(obj.y - obj2.y) < (canvas.height + obj.height + obj2.height) * 0.5)) return true;
+	return false;
+}
+
+function ExistentAndAlive(obj)
+{
+	if(!obj) return false;
+	if(!obj.alive) return false;
+	return true;
+}
+
+function ProjectileUpdate()
+{
+	if((this.frameDeath) && (frame == this.frameDeath))
+	{
+		alive = false;
+		return;
+	}
+	this.x += this.dx;
+	this.y += this.dy;
+	// Why two loops? So that objects spawned in positions they would die instantly do no harm (PRIMVM NON NOCERE)
+	for(var i = 0; i < numberOfObjects; i++)
+	{
+		var obj = objects[i];
+		if(!obj.alive) continue;
+		if(obj == this) continue;
+		
+		if(Collision(this, obj))
+		{
+			if((obj.IsSolidTo) && (obj.IsSolidTo(this)))
+			{
+				this.alive = false;
+				return;
+			}
+		}
+	}
+	for(var i = 0; i < numberOfObjects; i++)
+	{
+		var obj = objects[i];
+		if(!obj.alive) continue;
+		if(obj == this) continue;
+		
+		if(Collision(this, obj))
+		{
+			if(obj.Hit == this.targetHit)
+			{
+				obj.Hit(this.damage);
+				this.alive = false;
+			}
+		}
+	}
+}

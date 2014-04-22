@@ -7,6 +7,7 @@ var context;
 var frame;
 var mouse = {};
 var preventDefault = false;
+var freeze;
 
 function KeyDownEvent(event)
 {
@@ -50,6 +51,7 @@ function Start()
 	camera.y = 0;
 	numberOfObjects = 0;
 	setTimeout("DoFrame()", 1000.0 / 60.0);
+	freeze = false;
 }
 
 function NewObject()
@@ -83,13 +85,13 @@ function DoFrame()
 {
 	Update();
 	Draw();
-	frame++;
+	if(!freeze) frame++;
 	setTimeout("DoFrame()", 1000.0 / 60.0);
 }
 
 function Update()
 {
-	UpdateObjects();
+	if(!freeze) UpdateObjects();
 	if(typeof UpdateGame != "undefined") UpdateGame();
 }
 

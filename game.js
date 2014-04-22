@@ -1,4 +1,4 @@
-var gameState; // 0 - Main menu 1 - Password screen 2 - Load level 3 - Playing 4 - Death 5 - Credits 6 - Instructions 7 - Loading data
+var gameState; // 0 - Main menu 1 - Password screen 2 - Load level 3 - Playing 4 - Death 5 - Credits 6 - Instructions 7 - Loading data 8 - Level screen 9 - Victory screen
 var initGameState = false;
 
 function InitGame()
@@ -25,16 +25,27 @@ function UpdateGame()
 			if(initGameState) document.getElementById("passwordMenu").style.display = "block";
 			break;
 		case 2:
+			if(level == numberOfLevels)
+			{
+				ChangeGameState(9);
+				break;
+			}
+			freeze = true;
+			ClearObjects();
 			levels[level].Init();
-			ChangeGameState(3);
+			ChangeGameState(8);
 			break;
 		case 3:
+			if(initGameState) freeze = false;
 			break;
 		case 4:
+			if(initGameState) document.getElementById("deathScreen").style.display = "block";
 			break;
 		case 5:
+			if(initGameState) document.getElementById("creditsScreen").style.display = "block";
 			break;
 		case 6:
+			if(initGameState) document.getElementById("instructions").style.display = "block";
 			break;
 		case 7:
 			if(initGameState) StartLoadingData();
@@ -44,6 +55,24 @@ function UpdateGame()
 			{
 				document.getElementById("loadingScreen").style.display = "none";
 				ChangeGameState(0);
+			}
+			break;
+		case 8:
+			if(initGameState)
+			{
+				document.getElementById("levelStartScreen").innerHTML = "<center><h3>Level " + (level + 1) + "</h3><b>Password: " + levels[level].password + "</b><br>Press jump button to start</center>";
+				document.getElementById("levelStartScreen").style.display = "block";
+			}
+			if(keys["keyJump"].state == 1)
+			{
+				document.getElementById("levelStartScreen").style.display = "none";
+				ChangeGameState(3);
+			}
+			break;
+		case 9:
+			if(initGameState)
+			{
+				document.getElementById("victoryScreen").style.display = "block";
 			}
 			break;
 	}
@@ -64,6 +93,18 @@ function ClickPassword()
 {
 	document.getElementById("startMenu").style.display = "none";
 	ChangeGameState(1);
+}
+
+function ClickCredits()
+{
+	document.getElementById("startMenu").style.display = "none";
+	ChangeGameState(5);
+}
+
+function ClickReturnCredits()
+{
+	document.getElementById("creditsScreen").style.display = "none";
+	ChangeGameState(0);
 }
 
 function ClickReturn()
@@ -95,4 +136,28 @@ function TryPassword()
 		document.getElementById("passwordMenu").style.display = "none";
 		ChangeGameState(2);
 	}
+}
+
+function ClickContinue()
+{
+	document.getElementById("deathScreen").style.display = "none";
+	ChangeGameState(2);
+}
+
+function ClickInstructions()
+{
+	document.getElementById("startMenu").style.display = "none";
+	ChangeGameState(6);
+}
+
+function ClickReturnInstructions()
+{
+	document.getElementById("instructions").style.display = "none";
+	ChangeGameState(0);
+}
+
+function ClickReturnVictory()
+{
+	document.getElementById("victoryScreen").style.display = "none";
+	ChangeGameState(0);
 }

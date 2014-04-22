@@ -126,7 +126,7 @@ function DrawTiled(image, x0, y0, _width, _height)
 
 function TiledDraw()
 {
-	DrawTiled(this.image, this.x0 - this.width * 0.5, this.y0 - this.height * 0.5, this.width, this.height);
+	DrawTiled(this.image, this.x - this.width * 0.5, this.y - this.height * 0.5, this.width, this.height);
 }
 
 function DrawTiled2(image, x0, y0, width, height)
