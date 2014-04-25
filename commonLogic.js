@@ -175,3 +175,31 @@ function ProjectileUpdate()
 		}
 	}
 }
+
+function BackAndForthUpdate()
+{
+	if(this.dx > 0)
+	{
+		this.flipH = true;
+		this.x = Math.min(this.x1, this.x + this.dx);
+		if(this.x == this.x1)
+		{
+			this.y = this.y1;
+			this.dx *= -1;
+			this.dy *= -1;
+		}
+		else this.y += this.dy;
+	}
+	else
+	{
+		this.flipH = false;
+		this.x = Math.max(this.x0, this.x + this.dx);
+		if(this.x == this.x0)
+		{
+			this.y = this.y0;
+			this.dx *= -1;
+			this.dy *= -1;
+		}
+		else this.y += this.dy;
+	}
+}
