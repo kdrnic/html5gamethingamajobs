@@ -1,6 +1,8 @@
-drnickshtml5gamethingamajobs
+html5gamethingamajobs
 ============================
 
 Small codebase for HTML5 game programming, including platformer code
 
-License: Don't be a dick, share alike and attribute license
+Used for LD29
+
+Now outdated, see jsGamedevExperiments for current work
